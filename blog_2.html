@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Hank's Notes</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./static/js/jquery.min.js") }}">\x3C/script>')</script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/d3.v3.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header>
+    
+
+<nav class="navbar" role="navigation">
+  <div class="container container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"><span id="logo"></span><span id="title">Hank's Notes</span></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav" style = "padding-left:30px;">
+        
+            
+            <li><a href="./home.html">Home</a></li>
+            
+        
+            
+            <li><a href="./blogs.html">Blogs</a></li>
+            
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    </header>
+
+    <div class="container">
+    
+
+<body>
+	<h3><strong>A Convolutional Neural Network for Modelling Sentences (Kalchbrenner et al. 2014)</strong></h3>
+<h4>Overview</h4>
+<ul>
+<li>
+<p>Uses CNN to represent sentences, which they call "Dynamic Convolutional Neural Network (DCNN)"</p>
+</li>
+<li>
+<p>Each filters of CNN captures n-gram information of the words</p>
+</li>
+<li>
+<p>It can capture long ranged n-gram information and hierarchically combine them</p>
+</li>
+<li>
+<p>No additional parse trees are required</p>
+</li>
+<li>
+<p>Pooling operation for each of the filters induces word invariance to absolute position within the n-gram </p>
+</li>
+</ul>
+<h4>Key Results</h4>
+<p><img alt="E" src="./static/img/2_cnn_sentences.png" /></p>
+<ul>
+<li>
+<p>Architecture</p>
+<ol>
+<li>
+<p>Input : word embedding vectors (trained along with CNN)</p>
+</li>
+<li>
+<p>Wide Convolution : essentially one dimensional filter that captures n-gram information of each latent feature of a word vector</p>
+</li>
+<li>
+<p>Dynamic k-max pooling : Selects k-most highest activation values in each convolution</p>
+<ul>
+<li>
+<p>It is <strong>dynamic</strong> as the value of k varies depending on the current number of convolution layer (l), total number of convolutional layers in the networkd (L) and the length of the input sentence (s)</p>
+</li>
+<li>
+<p>k_top = the fixed pooling parameter for the top most convolution layer (fixed parameter)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Folding : Sums up every two features (rows) of the final CNN induced sentence embedding vectors</p>
+<ul>
+<li>Attempts to capture the dependencies between the features </li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4>Comments</h4>
+<ul>
+<li>
+<p>This model tries to minimize accounting for the dependencies between the latent features in the embedding vectors (perhaps the authors assume that each of the latent features could contain its own independent mechanism or interpretation)</p>
+</li>
+<li>
+<p>Instead of folding, dynamically training the dependencies between the latent features by using multi-dimensional filters might capture some interesting dependencies between words and their n-grams in non-linear space.</p>
+</li>
+</ul>
+</body>
+
+
+    </div>
+ </body>
+</html>

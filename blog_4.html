@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Hank's Notes</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./static/js/jquery.min.js") }}">\x3C/script>')</script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/d3.v3.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header>
+    
+
+<nav class="navbar" role="navigation">
+  <div class="container container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"><span id="logo"></span><span id="title">Hank's Notes</span></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav" style = "padding-left:30px;">
+        
+            
+            <li><a href="./home.html">Home</a></li>
+            
+        
+            
+            <li><a href="./blogs.html">Blogs</a></li>
+            
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    </header>
+
+    <div class="container">
+    
+
+<body>
+	<h3><strong>Attention-based LSTM for Aspect Level Sentiment Classification (Wang et al. 2016)</strong></h3>
+<h4>Overview</h4>
+<ul>
+<li>
+<p>Incorporates attention mechanism in LSTM for sentiment classification in aspect level</p>
+</li>
+<li>
+<p>Aspect-level sentiment: distinguishes the sentiment of the input sentence with respect to few pre-defined categories</p>
+<ul>
+<li>
+<p>e.g. "The appetizers are ok. but the service is slow"</p>
+</li>
+<li>
+<p>Sentiment of the sentence in the aspect of "taste" : positive</p>
+</li>
+<li>
+<p>Sentiment of the sentence in the aspect of "service" : negative</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4>Key Results</h4>
+<p><img alt="E" src="./static/img/4_aspect_lstm.png" /></p>
+<ul>
+<li>
+<p>Architecture</p>
+<ol>
+<li>
+<p>Train LSTM with both word &amp; aspect embedding vectors as inputs to capture interdependence of words and aspects simultaneously</p>
+</li>
+<li>
+<p>Concatenate aspect embedding to the hidden representation vector generated from LSTM</p>
+</li>
+<li>
+<p>Using the concatenated vectors from step 2 as input, additional softmax layer is trained as attention mechanism to generate weights for each of the hidden representation vector.</p>
+</li>
+<li>
+<p>Hidden representation vectors are multiplied by their corresponding weights from step 3 to generate attention based hidden representation </p>
+</li>
+<li>
+<p>Hidden representation of the entire sentence is computed by adding the hidden representation computed from LSTM and the hidden representation computed from the attention mechanism in step 4.</p>
+</li>
+<li>
+<p>Final softmax layer trained for classifying aspect level sentiment</p>
+</li>
+</ol>
+</li>
+</ul>
+<h4>Comments</h4>
+<ul>
+<li>
+<p>Essentially, bigger input space through incorporating aspect embedding inevitably increases the model's capacity to capture the useful clues for the classification.</p>
+</li>
+<li>
+<p>Adding attention based hidden representation at the end of LSTM enables the model to emphasize / carry on the impact of the local words that could have been neglected while training LSTM.</p>
+</li>
+<li>
+<p><strong>Although this model successfully captures the dependency between the words and the aspects, each aspect is fed into the model separately, thereby failing to incorporate the interdependence between the aspects.</strong></p>
+</li>
+</ul>
+</body>
+
+
+    </div>
+ </body>
+</html>

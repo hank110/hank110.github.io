@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Hank's Notes</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./static/js/jquery.min.js") }}">\x3C/script>')</script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/d3.v3.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header>
+    
+
+<nav class="navbar" role="navigation">
+  <div class="container container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"><span id="logo"></span><span id="title">Hank's Notes</span></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav" style = "padding-left:30px;">
+        
+            
+            <li><a href="./home.html">Home</a></li>
+            
+        
+            
+            <li><a href="./blogs.html">Blogs</a></li>
+            
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    </header>
+
+    <div class="container">
+    
+
+<body>
+	<h3><strong>A Neural Attention Model for Abstractive Sentence Summarization (Rush et al. 2015)</strong></h3>
+<h4>Overview</h4>
+<ul>
+<li>
+<p>Given the first sentence of an article as input, this model generates a suitable headline for the article </p>
+</li>
+<li>
+<p>It trains attention based neural network to generate language model </p>
+<ul>
+<li>Given the entire input sentence and the contexts of the output, the model generates the subsequent word for the headline </li>
+</ul>
+</li>
+</ul>
+<h4>Key Results</h4>
+<p><img alt="E" src="./static/img/5_attention_summarization_architecture.png" /></p>
+<ul>
+<li>
+<p>Architecture of the entire model (left section of the diagram)</p>
+<ol>
+<li>
+<p>One hot representation of all words in the input sentence and the context words (in the headline) are processed in the <strong>attention based encoder to generate their encoded representation</strong>.</p>
+</li>
+<li>
+<p>One hot representation of context matrix are multiplied by their embedding matrix E to be generate their embedded representations.</p>
+</li>
+<li>
+<p>Embedded context matrix is multiplied by the weight matrix U, and the result subsequently undergoes non-linear transformation (tanh) to generate its hidden representation h.</p>
+</li>
+<li>
+<p><strong>Encoded representation from step 1</strong> and <strong>the hidden representation h from step 3</strong> are multiplied by their corresponding weight matrices, and the exponential of their summation is used to estimate the probability of the language model </p>
+</li>
+</ol>
+</li>
+<li>
+<p>Architecture of the encoder (right section of the diagram)</p>
+<ol>
+<li>
+<p>One hot representation of all words in the input sentence and the context words are multiplied by their corresponding weight matrices F and G to generate each of their hidden representations</p>
+</li>
+<li>
+<p>Embedded input matrix representation and context matrix representation are multiplied by the weight matrix P to generated <strong>the additional hidden representation p</strong>.</p>
+<ul>
+<li>The weight matrix P can be regarded as learning the alignment between the words in the input sentence and the words in the context <strong>(Attention Mechanism)</strong></li>
+</ul>
+</li>
+<li>
+<p>Hidden representation p and the embedded input matrix are multiplied to create <strong>encoded representation of the input</strong> that incorporates the attention mechanism</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Once the language model is trained, it is combined with other hand engineered features to predict the subsequent word of the headline</p>
+</li>
+<li>
+<p>Weights between the language model and the hand engineered features can be additionally trained </p>
+</li>
+</ul>
+<h4>Comments</h4>
+<ul>
+<li>
+<p>Instead of encoding the sequence of entire sentence using a single neural network, it might be better to use other forms of deep learning such as RNNs.</p>
+</li>
+<li>
+<p>Most of the hand engineered features are based on sequential information (such as the presence of unigram, bigram, trigram match)</p>
+</li>
+<li>
+<p>Sequential deep learning models might be able to remove these additional hand engineered features.</p>
+</li>
+<li>
+<p>Instead of sentence summarization, I wonder if it is possible to apply similar attention based methods to generate a summary that contains multiple sentences.</p>
+</li>
+</ul>
+</body>
+
+
+    </div>
+ </body>
+</html>

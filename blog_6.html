@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Hank's Notes</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/custom.css" rel="stylesheet">
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="./static/js/jquery.min.js") }}">\x3C/script>')</script>
+    <script type="text/javascript" src="../static/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../static/js/d3.v3.min.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Play' rel='stylesheet' type='text/css'>
+  </head>
+  <body>
+    <header>
+    
+
+<nav class="navbar" role="navigation">
+  <div class="container container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand"><span id="logo"></span><span id="title">Hank's Notes</span></a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav" style = "padding-left:30px;">
+        
+            
+            <li><a href="./home.html">Home</a></li>
+            
+        
+            
+            <li><a href="./blogs.html">Blogs</a></li>
+            
+        
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+    </header>
+
+    <div class="container">
+    
+
+<body>
+	<h3><strong>Cross-modal Knowledge Transfer - Improving the Word Embedding of Apple by Looking at Oranges (Both et al. 2017)</strong></h3>
+<h4>Overview</h4>
+<ul>
+<li>
+<p>Proposes a simple yet effective method for combining different embedding spaces into a common fused tri-modal space</p>
+<ul>
+<li>In this paper, it combines word embedding, visual object embedding knowledge entity embedding</li>
+</ul>
+</li>
+<li>
+<p>Suggests a method to improve a single embedding space by the fused tri-modal space </p>
+</li>
+</ul>
+<h4>Key Results</h4>
+<h5>Constructing a tri-modal concept space</h5>
+<p><img alt="E" src="./static/img/6_fusion_equation.png" /></p>
+<ul>
+<li>
+<p>Only the common concepts in all three embedding spaces are fused together to create a single embedding vector</p>
+</li>
+<li>
+<p>Uses WordNet lexemes as a template for choosing common concepts to be fused together</p>
+</li>
+<li>
+<p>Besides simple concatenation, dimension reduction such as PCA or SVD can be applied on this matrix</p>
+</li>
+<li>
+<p>Seems like the weights of each model is found by cross-validating on certain NLP tasks (e.g. concept similarity task in this paper) </p>
+</li>
+</ul>
+<h5>Transferring multi-modal knowledge to single modalities</h5>
+<p><img alt="E" src="./static/img/6_transfer.png" /></p>
+<ol>
+<li>
+<p>Feature Mask: </p>
+<ul>
+<li>
+<p>For common concepts in two embedding spaces, calculate correlation(differences in each feature, similarity between two vectors)</p>
+</li>
+<li>
+<p>Normalize this correlation vector by a sigmoid</p>
+</li>
+<li>
+<p>Element-wise product between the single embedding vector and the feature mask</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Feature Rebuilding</p>
+<ul>
+<li>
+<p>Train a mapping function (in this case, NN) between the single embedding vector for concept A --&gt;  feature n of concept A in the fused embedding space</p>
+</li>
+<li>
+<p>Train a mapping function for every dimension of the fused embedding space</p>
+</li>
+<li>
+<p>Normalize this artificial vector and concatenate it with the originam single embedding vector</p>
+</li>
+</ul>
+</li>
+</ol>
+<h4>Comments</h4>
+<ul>
+<li>
+<p>Although it is simple and effective, it is still bounded by the availability of external sources such as WordNet, which can limit its application in other languages devoid of such source or texts within specific domains</p>
+</li>
+<li>
+<p>It states that this fused model is more interpretable than the joint optimization approach --&gt; But we still don't know semantic understanding behind each of the feature.</p>
+</li>
+</ul>
+</body>
+
+
+    </div>
+ </body>
+</html>
